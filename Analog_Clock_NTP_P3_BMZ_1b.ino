@@ -3,6 +3,7 @@
 // v.1 - colours changed every minutes not seconds
 // v.1.a - change brightness in 2 steps(max and min) by default one
 // v.1.b - addeed resistor + 10k resistor for real ccontrol for brightness in 2 steps - https://esp32io.com/tutorials/esp32-light-sensor
+// v.1.b.1 - added histeresys at brightness changes
 
 #include "WiFi.h"
 #include <RGBmatrixPanelGP.h>  // RGB matrix Panel Library: https://github.com/3tawi/RGBmatrixPanelGP
@@ -94,7 +95,7 @@ void loop() {
 analogValue = analogRead(LIGHT_SENSOR_PIN);  // reads the input on analog pin (value between 0 and 4095)
 if (analogValue < 800)
     luminozitate = 127;  // low brightness
-else
+if (analogValue > 850)
     luminozitate = 255;  // high brightness
   
   drawtime();
